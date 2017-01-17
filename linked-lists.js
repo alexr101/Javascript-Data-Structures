@@ -6,7 +6,9 @@ function LinkedList(){
 
 LinkedList.prototype = {
 
-	addToHead : function(value){
+	//O(1)?
+	//Add a Node to the beginning of this list
+	addToHead: function(value){
 		var newNode = new Node(value, this.head, null);
 
 		if(!this.isEmpty()) this.head.prev = newNode;
@@ -16,7 +18,9 @@ LinkedList.prototype = {
 		this.count = this.count + 1;
 	},
 
-	addToTail : function(value){
+	//O(1)?
+	//Add a Node to the end of this list
+	addToTail: function(value){
 		var newNode = new Node(value, null, this.tail);
 		
 		if(!this.isEmpty()) this.tail.next = newNode;
@@ -26,7 +30,9 @@ LinkedList.prototype = {
 		this.count = this.count + 1;
 	},
 
-	removeFirst : function(){
+	//O(n)
+	//Remove the first node of this list
+	removeFirst: function(){
 		var nodeCopy = this.head ;
 
 		if(!this.isEmpty()){
@@ -43,7 +49,9 @@ LinkedList.prototype = {
 		return nodeCopy ? nodeCopy.value : null;
 	},
 
-	removeLast : function(){
+	//O(n)
+	//Remove the last Node of this list
+	removeLast: function(){
 		var nodeCopy = this.tail;
 
 		if(!this.isEmpty()){
@@ -61,25 +69,50 @@ LinkedList.prototype = {
 		return nodeCopy ? nodeCopy.value : null;
 	},
 
-	length : function(){
+	//O(1)
+	//return the length of this list
+	length: function(){
 		return this.count;
 	},
 
-	getFirst : function(){
+	//O(1)
+	//return the first Node of this list
+	getFirst: function(){
 		return this.head;
 	},
 
-	getLast : function(){
+	//O(1)
+	//return the last Node of this list
+	getLast: function(){
 		return this.tail;
 	},
 
-	search : function(value){
+	//O(n)
+	//Search for a Node value that is an exact match of the passed in parameters
+	//return the result
+	search: function(value){
+		var nodeCopy = this.head;
+
+		while(nodeCopy){
+
+			if(nodeCopy.value === value){ return nodeCopy };
+
+			nodeCopy = nodeCopy.next;
+		}
+
+		return null;
+	},
+
+	//O(n)
+	//Search all Node values that match or partially match the passed in parameter, 
+	//and return an array containing the results
+	contains: function(value){
 		var nodeCopy = this.head;
 		var array = [];
 
 		while(nodeCopy){
 
-			if (nodeCopy.value.includes(value)){
+			if(nodeCopy.value.includes(value)){
 				array.push(nodeCopy.value);
 			} 
 
@@ -89,7 +122,33 @@ LinkedList.prototype = {
 		return array;
 	},
 
-	getContents : function(){
+	//O(n)
+	//Get the index position in the Linked List
+	getIndex: function(value){
+		var nodeCopy = this.head;
+		var currentIndex = -1;
+
+		while(nodeCopy){
+
+			currentIndex = currentIndex + 1;
+
+			if(nodeCopy.value === value){ break; }
+
+			nodeCopy = nodeCopy.next;
+		}
+
+		if(!nodeCopy){
+			return null;
+		}
+
+		return currentIndex;	
+
+	},
+
+
+	//O(n)
+	//Return all the contents of this list in an array
+	getContents: function(){
 		var nodeCopy = this.head;
 		var array = [];
 
@@ -101,7 +160,9 @@ LinkedList.prototype = {
 		return array;
 	},
 
-	getReverseContents : function(){
+	//O(n)
+	//Return all the reverse contents of this list in an array
+	getReverseContents: function(){
 		var nodeCopy = this.tail;
 		var array = [];
 
@@ -113,7 +174,9 @@ LinkedList.prototype = {
 		return array;
 	},
 
-	isEmpty : function(){
+	//O(1)
+	//Verify if list is empty
+	isEmpty: function(){
 		return (this.count === 0);
 	},
 
@@ -131,7 +194,9 @@ userList.addToHead("alexonezero");
 userList.addToHead("bubba101");
 userList.addToHead("the101s");
 userList.addToHead("heyhey101hey");
-console.log(userList);
+console.log(userList.getContents());
+
+console.log(userList.getIndex("alexonezero"));
 
 //userList.removeFirst();
 //userList.removeLast();
