@@ -34,23 +34,18 @@ BST.prototype = {
 	//Traverses the whole tree IN ORDER
 	depthFirstTraversal: function(visit, depth){
 
-		if(depth === "pre-order"){ 
-			visit(this); 
-		}
-
+		if(depth === "pre-order") visit(this); 
+		
 		if(this.left) this.left.depthFirstTraversal(visit, depth);
 
-		if(depth === "in-order"){ 
-			visit(this); 
-		}
+		if(depth === "in-order") visit(this); 
 
 		if(this.right) this.right.depthFirstTraversal(visit, depth);
 
-		if(depth === "post-order"){ 
-			visit(this); 
-		}
+		if(depth === "post-order") visit(this); 
+		
 
-		// or
+		// Another structure
 		// if(this){
 		// 	this.left.depthFirstTraversal(iteratorFn, depth);
 		// 	this.right.depthFirstTraversal(iteratorFn, depth);
@@ -59,7 +54,7 @@ BST.prototype = {
 
 	//Unsorted tree
 	getMaxVal: function(){
-		var currentMax = 0;
+		var currentMax = this.value;
 
 		this.depthFirstTraversal(function(node){
 			
@@ -72,18 +67,26 @@ BST.prototype = {
 
 	//Unsorted tree
 	getMinVal: function(){
-		var currentMin = 0;
+		var currentMin = this.value;
 
 		this.depthFirstTraversal(function(node){
 
-			if(node.value > currentMax){ currentMax = node.value; }
+			if(node.value < currentMin){ currentMin = node.value; }
 
 		}, "in-order")
 
-		return currentMax;
+		return currentMin;
 	},
 
+	getMaxValBst: function(){
+		if(this.right) this.right.getMaxValBst();
+		else return this.value;
+	},
 
+	getMinValBst: function(){
+		if(this.left) this.left.getMinValBst();
+		else return this.value;
+	},
 
 
 }
@@ -98,8 +101,13 @@ binaryST.insert(60);
 
 console.log(binaryST)
 console.log(binaryST.contains(15));
+
 console.log(binaryST.depthFirstTraversal(logNode, "post-order"));
+
 console.log(binaryST.getMaxVal());
+console.log(binaryST.getMinVal());
+
+
 
 function logNode(node){
 	if(typeof node !== undefined){
