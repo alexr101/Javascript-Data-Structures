@@ -31,12 +31,59 @@ BST.prototype = {
 	},
 
 	//O(n)
-	//Traverses the whole tree
-	depthFirstTraversal: function(iteratorFn){
-		if(this.left) this.left.depthFirstTraversal(iteratorFn);
-		iteratorFn(this.value);
-		if(this.right) this.right.depthFirstTraversal(iteratorFn);
+	//Traverses the whole tree IN ORDER
+	depthFirstTraversal: function(visit, depth){
+
+		if(depth === "pre-order"){ 
+			visit(this); 
+		}
+
+		if(this.left) this.left.depthFirstTraversal(visit, depth);
+
+		if(depth === "in-order"){ 
+			visit(this); 
+		}
+
+		if(this.right) this.right.depthFirstTraversal(visit, depth);
+
+		if(depth === "post-order"){ 
+			visit(this); 
+		}
+
+		// or
+		// if(this){
+		// 	this.left.depthFirstTraversal(iteratorFn, depth);
+		// 	this.right.depthFirstTraversal(iteratorFn, depth);
+		// }
 	},
+
+	//Unsorted tree
+	getMaxVal: function(){
+		var currentMax = 0;
+
+		this.depthFirstTraversal(function(node){
+			
+			if(node.value > currentMax){ currentMax = node.value; }
+
+		}, "in-order")
+
+		return currentMax;
+	},
+
+	//Unsorted tree
+	getMinVal: function(){
+		var currentMin = 0;
+
+		this.depthFirstTraversal(function(node){
+
+			if(node.value > currentMax){ currentMax = node.value; }
+
+		}, "in-order")
+
+		return currentMax;
+	},
+
+
 
 
 }
@@ -51,6 +98,18 @@ binaryST.insert(60);
 
 console.log(binaryST)
 console.log(binaryST.contains(15));
-console.log(binaryST.depthFirstTraversal(function(value){
-	console.log(value);
-}));
+console.log(binaryST.depthFirstTraversal(logNode, "post-order"));
+console.log(binaryST.getMaxVal());
+
+function logNode(node){
+	if(typeof node !== undefined){
+		console.log(node.value);
+	}
+}
+
+
+
+
+
+
+
