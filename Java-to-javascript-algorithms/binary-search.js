@@ -1,5 +1,7 @@
 var array = [1, 2, 3, 32, 50, 234, 1230];
 
+//O(log n)
+
 function binarySearch(arr, x){
 
 	var p = 0;

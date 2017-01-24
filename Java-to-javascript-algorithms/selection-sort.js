@@ -21,5 +21,5 @@ function selectionSort(arr){
 
 var array = [3, 54, 123, 6, 121, 76, 31]
 
-//WOW :o
-console.log(selectionSort(array));
+//WOW :D
+oconsole.log(selectionSort(array));
