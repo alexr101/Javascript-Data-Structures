@@ -30,43 +30,48 @@ LinkedList.prototype = {
 		this.count = this.count + 1;
 	},
 
-	//O(n)
-	//Remove the first node of this list
-	removeFirst: function(){
-		var nodeCopy = this.head ;
+	// O(n)
+	// Remove the first node of this list
+	removeFirst: function() {
+		var nodeHead = this.head;
 
-		if(!this.isEmpty()){
-			this.head = this.head.next;
-			this.count = this.count - 1;
+		if(!nodeHead) return null;
 
-			if(this.head){
-				this.head.prev = null;	
-			} 
-			else 
-				this.tail = null; //null the tail as well if it's empty
+		this.head = this.head.next; // might be null
+		this.count = this.count - 1;
+
+		if(this.head) {
+			this.head.prev = null;
+			if(this.head.next == null) // if the count is now 1
+				this.tail = this.head;
+		} else {
+			this.tail = null;
 		}
 
-		return nodeCopy ? nodeCopy.value : null;
+		return nodeHead.value;
+
 	},
+	
+	// O(n)
+	// Remove tail
+	removeLast: function() {
+		var nodeTail = this.tail;
 
-	//O(n)
-	//Remove the last Node of this list
-	removeLast: function(){
-		var nodeCopy = this.tail;
+		if(!nodeTail) return null;
 
-		if(!this.isEmpty()){
-			this.tail = this.tail.prev;
-			this.count = this.count - 1;
+		this.tail = this.tail.prev;
+		this.count = this.count - 1;
 
-			if(this.tail){
-				this.tail.next = null;	
-			} 
-			else 
-				this.head = null; //null the head as well if it's empty
-			
+		if(this.tail) {
+			this.tail.next = null;
+			if(!this.tail.prev) 
+				this.head = this.tail;
+		} else {
+			this.head = null
 		}
 
-		return nodeCopy ? nodeCopy.value : null;
+		return nodeTail.value;
+
 	},
 
 	//O(1)
