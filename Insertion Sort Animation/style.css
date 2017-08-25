@@ -1,0 +1,38 @@
+html, body{
+    width: 100%;
+    text-align: center;
+}
+
+#sort-btn{
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+
+#dot-container{
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,.1);
+    display: inline-block;
+    margin: auto;
+}
+
+div.dot{
+    display:inline-block;
+    width: 3px;
+    height: 100vh;
+    vertical-align: top;
+    transition: margin-top 1s;
+    /*border-top: 1px solid black;*/
+    /*background-color: #462066;*/
+
+}
+
+div.dot:nth-child(odd){
+    /*background-color: #00AAA0;*/
+}
+
+div.dot::after{
+    content: ".";
+    display: inline-block;
+    font-size: 20px;
+}
