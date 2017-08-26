@@ -135,6 +135,48 @@ Bst.prototype.sumEquals = function(val) {
 	return found;
 }
 
+// Internal nodes - have leaves
+// Leaf (External) nodes - don't have children
+
+Bst.prototype.sortNodes = function(){
+	var internalNodes = [];
+	var externalNodes = [];
+
+
+	traverse(this, function(node, hasChildren) {
+		if(hasChildren) {
+			internalNodes.push(node);
+		} else {
+			if(node) 
+				externalNodes.push(node);
+		}
+	});
+
+	return {
+		internal: internalNodes,
+		external: externalNodes
+	}
+}
+
+// external rewrite for the sortNodes function
+function traverse(node, callback) {
+	if(!node)
+		return false;
+
+	var hasChildren = false;
+
+	var left = traverse(node.left, callback);
+	var right = traverse(node.right, callback);
+
+	if(left || right) {
+		hasChildren = true;
+	}
+
+	callback(node, hasChildren);
+
+	return true;
+}
+
 var tree;
 function setup() {
 	tree = new Bst(15);
@@ -144,8 +186,11 @@ function setup() {
 	tree.add(3);
 	tree.add(6);
 	tree.add(19);
+	tree.add(20);
 
-
+	var sortedNodes = tree.sortNodes();
+	console.log('sorted Nodes V');
+	console.log(sortedNodes);
 	tree.traverse(function(node) {
 		console.log(node.val);
 	}, "in-order");
