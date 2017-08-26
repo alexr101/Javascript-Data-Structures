@@ -135,22 +135,43 @@ Bst.prototype.sumEquals = function(val) {
 	return found;
 }
 
+
+// Find Visible Nodes
+// Visible Nodes - Node whose value is more than the sum of its parents
+
+Bst.prototype.visibleNodeCount = function(sum) {
+	var sum = sum || 0;
+	var count = 0;
+
+	if(this.val > sum)
+		count = count + 1;
+
+	if(this.left)
+		count = count + this.left.visibleNodeCount(this.val + sum);
+
+	if(this.right)
+		count = count + this.right.visibleNodeCount(this.val + sum);
+
+	return count;
+}
+
 // Internal nodes - have leaves
 // Leaf (External) nodes - don't have children
 
-Bst.prototype.sortNodes = function(){
-	var internalNodes = [];
-	var externalNodes = [];
+Bst.prototype.sortNodes = function(internalNodes, externalNodes){
+	var internalNodes = internalNodes || [];
+	var externalNodes = externalNodes || [];
 
+	if(this.right || this.left)
+		internalNodes.push(this);
+	else
+		externalNodes.push(this);
 
-	traverse(this, function(node, hasChildren) {
-		if(hasChildren) {
-			internalNodes.push(node);
-		} else {
-			if(node) 
-				externalNodes.push(node);
-		}
-	});
+	if(this.left)
+		this.left.sortNodes(internalNodes, externalNodes)
+
+	if(this.right)
+		this.right.sortNodes(internalNodes, externalNodes);
 
 	return {
 		internal: internalNodes,
@@ -158,24 +179,16 @@ Bst.prototype.sortNodes = function(){
 	}
 }
 
-// external rewrite for the sortNodes function
-function traverse(node, callback) {
-	if(!node)
-		return false;
 
-	var hasChildren = false;
-
-	var left = traverse(node.left, callback);
-	var right = traverse(node.right, callback);
-
-	if(left || right) {
-		hasChildren = true;
-	}
-
-	callback(node, hasChildren);
-
-	return true;
-}
+//  VIZUALIZATION
+//
+//       15
+//      /  \
+//     5   19
+//    / \    \
+//   3   10  100
+//      /  
+//     6
 
 var tree;
 function setup() {
@@ -186,11 +199,16 @@ function setup() {
 	tree.add(3);
 	tree.add(6);
 	tree.add(19);
-	tree.add(20);
+	tree.add(100);
 
+	var visibleNodes = tree.visibleNodeCount();
 	var sortedNodes = tree.sortNodes();
+
+	console.log('Visible Node count V');
+	console.log(visibleNodes);
 	console.log('sorted Nodes V');
 	console.log(sortedNodes);
+
 	tree.traverse(function(node) {
 		console.log(node.val);
 	}, "in-order");
