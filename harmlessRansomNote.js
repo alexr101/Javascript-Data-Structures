@@ -26,7 +26,7 @@ var found = harmlessRansomNote('hi you', 'hi this article is written just for yo
 console.log(found);
 
 
-// O(n + n)
+// O(n + m)
 // Use a hashtable for constant time lookup
 function harmlessRansomNote2(noteText, magazineText) {
 	var noteArr = noteText.split(' ');
@@ -39,7 +39,7 @@ function harmlessRansomNote2(noteText, magazineText) {
 		magazineHT[word]++;
 	});
 
-	for(var i = 0; i < noteArr.length; i++) {
+	for(var i = 0; i < noteArr.length; i++) { // use for loop for ability to break out w return
 		var word = noteArr[i];
 
 		if(magazineHT.hasOwnProperty(word) && magazineHT[word] > 0) 
