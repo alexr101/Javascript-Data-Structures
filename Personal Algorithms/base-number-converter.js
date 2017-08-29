@@ -1,23 +1,27 @@
 // Created by Alex Padilla
 // www.alexonezero.com
 // 8/28/2017
-// TODO: 2-10 Base conversion
+// TODO: 1 & +10 Base conversion
 
 Number.prototype.baseConvertTo = function(base) {
   var baseNumber = 0;
   var thisNum = this;
+
+  if(base <= 1 || base > 9) return;
 
   while(thisNum > 0) {
 
     // subtract from num
     var largestPow = findLargestPow(base, thisNum);
 
-    var powNum = Math.pow(base, largestPow);
+    var powNum = Math.pow(base, largestPow); // eg: 8^2
     var powFits = floorDivision(thisNum, powNum);
     thisNum -= (powNum * powFits);
     // add to base number    
     var multiplier = (Math.pow(10, largestPow));
     baseNumber +=  multiplier * powFits;    
+    // string alternative
+    // baseNumber = baseNumber + powFits;
   }
 
   return baseNumber;
@@ -45,32 +49,22 @@ function findLargestPow(base, num) {
   return largestPow;
 }
 
-var num = 100;
+var num = 450;
 var results = [];
-console.log(num.baseConvertTo(1)); // ERROR!
 
-// function loop(i, callback) {
-//   callback(i);
-//   if(i === 0) return;
-//   loop(i-1, callback);
-// }
+function loop(i, callback) {
+  callback(i);
+  if(i === 0) return;
+  loop(i-1, callback);
+}
 
-// loop(10, function(i) {
-//   results[i] = num.baseConvertTo(i);
-//   console.log(results[i]);
-//   console.log(i);
-// })
-
+loop(9, function(i) {
+  results[i] = num.baseConvertTo(i);
+  console.log('base ' + i + ':')
+  console.log(results[i]);
+});
 
 
-// // works
-// function loop(i, callback) {
-//   console.log(i);
-//   if(i === 0) return;
-//   return loop(i-1, callback);
-// }
-
-// loop(10);
 
 
 
