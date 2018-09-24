@@ -11,8 +11,8 @@ LinkedList.prototype = {
 	addToHead: function(value){
 		var newNode = new Node(value, this.head, null);
 
-		if(!this.isEmpty()) this.head.prev = newNode;
-		else this.tail = newNode;
+		if(this.isEmpty()) this.tail = newNode;
+		else this.head.prev = newNode;
 
 		this.head = newNode;		
 		this.count = this.count + 1;
@@ -23,8 +23,8 @@ LinkedList.prototype = {
 	addToTail: function(value){
 		var newNode = new Node(value, null, this.tail);
 		
-		if(!this.isEmpty()) this.tail.next = newNode;
-		else this.head = newNode;
+		if(this.isEmpty()) this.head = newNode; 
+		else this.tail.next = newNode;
 
 		this.tail = newNode;
 		this.count = this.count + 1;
@@ -198,7 +198,7 @@ var userList = new LinkedList();
 userList.addToHead("alexonezero");
 userList.addToHead("bubba101");
 userList.addToHead("the101s");
-userList.addToHead("heyhey101hey");
+// userList.addToHead("heyhey101hey");
 console.log(userList.getContents());
 
 console.log(userList.getIndex("alexonezero"));
@@ -208,3 +208,10 @@ console.log(userList.getIndex("alexonezero"));
 
 var searchResults = userList.search("101");
 console.log(searchResults);
+
+var arr = [];
+arr.push(1);
+arr.push(2);
+arr.push(3);
+console.log(arr);
+

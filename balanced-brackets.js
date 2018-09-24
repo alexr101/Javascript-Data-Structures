@@ -4,22 +4,45 @@ var bracketPairs = {
 }
 
 function isBalanced(brackets){
-  var queue = []
+  var stack = []
   
   for(var i = 0; i < brackets.length; i++) {
   	var bracket = brackets[i]
  
   	if(bracketPairs[bracket] != null){
-      queue.push(bracket)
+      stack.push(bracket)
     } else {
-       if(bracketPairs[queue.pop()] !== bracket) return false          	
+       if(bracketPairs[stack.pop()] !== bracket) return false          	
     }
   }
   
-  return queue.length === 0
+  return stack.length === 0
 }
 
 
 /* TEST HERE */
 var result = isBalanced("({{})")
 console.log(result)
+
+
+var brackets = {
+  '(': ')',
+  '{': '}'
+}
+
+var stack = ['('];
+
+var isBalanced = (brackets) => {
+  var stack = [];
+
+  brackets.forEach((bracket) => {
+    if(brackets[bracket] !== null){
+      stack.push(bracket);
+    } else {
+      for(var k)
+    }
+  })
+
+}
+
+isBalanced('(()');
