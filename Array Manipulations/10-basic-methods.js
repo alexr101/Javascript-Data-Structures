@@ -46,6 +46,10 @@ console.log(splice); // spliced portion
 console.log(arr); // portion that's left
 
 
+var split = '1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 0'.split(',');
+console.log(split);
+
+
 
 
 
