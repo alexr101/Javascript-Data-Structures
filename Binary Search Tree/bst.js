@@ -8,16 +8,18 @@ class Node {
 
 class BST {
     constructor(val){
-        this.root = new Node(val)
+        this.val = val;
+        this.left;
+        this.right
     }
 
     add( val){        
-        if(val < this.root.val) 
-            if(!this.root.left) this.root.left = new BST(val);
-            else this.root.left.add(val);
+        if(val < this.val) 
+            if(!this.left) this.left = new BST(val);
+            else this.left.add(val);
         else 
-            if(!this.root.right) this.root.right = new BST(val);
-            else this.root.right.add( val);
+            if(!this.right) this.right = new BST(val);
+            else this.right.add( val);
     }
 
     breadthFirstTraversal(){
@@ -25,16 +27,37 @@ class BST {
 
         while(queue.length) {
             let current = queue.shift();
-            console.log(current.root.val);
-            // console.log(current.root);
+            console.log(current.val);
+            // console.log(current);
             
-            if(current.root.left) {
-                queue.push(current.root.left);
+            if(current.left) {
+                queue.push(current.left);
             }
-            if(current.root.right) {
-                queue.push(current.root.right);
+            if(current.right) {
+                queue.push(current.right);
             }
         }
+    }
+
+/*
+    5
+1       7
+
+*/
+    convertToArr(){
+        let arr = [];
+
+        if(this.left) {
+            arr = arr.concat( this.left.convertToArr() );
+        }
+
+        arr.push(this.val);
+
+        if(this.right) {
+            arr = arr.concat( this.right.convertToArr() );
+        }
+
+        return arr;
     }
 }
 
@@ -48,6 +71,7 @@ bst.add(10);
 bst.add(12);
 
 bst.breadthFirstTraversal();
-
+let arr = bst.convertToArr();
+console.log(arr)
 // console.log(bst);
 
