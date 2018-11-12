@@ -22,6 +22,12 @@ class Graph{
     })
   }  
 
+  isEdge(nodeA, nodeB) {
+    console.log(this.graph[nodeA].indexOf(nodeB) !== -1);
+    
+    return this.graph[nodeA].indexOf(nodeB) !== -1;
+  }
+
   depthFirsttraverse(node) {
     console.log('Depth First Traverse', node);
     if(!this.graph[node]) return console.log('node does not exist');
@@ -41,15 +47,7 @@ class Graph{
         stack.push(child);
       }
     }
-
-
-  }
-
-  // [1, 2]
-  // [1]
-  // 0, 2, 3, 1 
-
-  
+  }  
 
   breadthFirstTraverse(node) {
     console.log('Breadth First Traverse', node);
@@ -93,4 +91,7 @@ graph.addEdge(9, 12);
 graph.printAll();
 graph.breadthFirstTraverse(1);
 graph.depthFirsttraverse(1);
+graph.isEdge(9, 11);
+graph.isEdge(9, 12);
+
 
