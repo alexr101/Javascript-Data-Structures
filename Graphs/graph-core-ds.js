@@ -41,6 +41,26 @@ class Graph {
     })
   }
 
+  breadthFirstTraversal(vertex) {
+    let queue = [vertex];
+    let visited = [];
+    while(queue.length) {
+      const current = queue.shift();
+      const children = this.edges[current];
+
+      if(visited[current]) continue;
+      visited[current] = true;
+      console.log(current);
+
+      if(!children) continue;
+
+      children.forEach((child) => {
+        if(!visited[child]) 
+          queue.push(child);
+      })
+    }
+  }
+
 
 }
 // using this instead of nested arrays makes it
@@ -51,6 +71,12 @@ let graph = new Graph({
 graph.addUndirectedEdge(1, 2)
 graph.addDirectedEdge(100, [200])
 graph.addDirectedEdge(3, [100])
+console.log('\nDFS');
 graph.depthFirstTraversal(0);
+console.log('\nBFS');
+
+graph.breadthFirstTraversal(0);
 
 console.log(graph)
+
+queue = [1, 2, 3, 2]
