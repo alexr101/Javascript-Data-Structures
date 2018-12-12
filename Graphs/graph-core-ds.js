@@ -26,6 +26,21 @@ class Graph {
     })
   }
 
+  depthFirstTraversal(vertex) {
+    this._depthFirstTraversal(vertex, []);
+  }
+
+  _depthFirstTraversal(vertex, visited) {
+    visited[vertex] = true;
+    console.log(vertex);
+    if(!this.edges[vertex]) return;
+
+    this.edges[vertex].forEach((child) => {
+      if(!visited[child])
+        this._depthFirstTraversal(child, visited);
+    })
+  }
+
 
 }
 // using this instead of nested arrays makes it
@@ -35,5 +50,7 @@ let graph = new Graph({
 })
 graph.addUndirectedEdge(1, 2)
 graph.addDirectedEdge(100, [200])
+graph.addDirectedEdge(3, [100])
+graph.depthFirstTraversal(0);
 
 console.log(graph)
