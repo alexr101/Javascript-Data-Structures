@@ -1,25 +1,84 @@
-class Node {
-    constructor(val){
-        this.val = val;
-        this.left;
-        this.right
-    }
-}
-
 class BST {
-    constructor(val){
+    constructor(val, parent){
         this.val = val;
         this.left;
-        this.right
+        this.right;
+        this.parent = parent;
     }
 
-    add( val){        
+    add(val){        
         if(val < this.val) 
-            if(!this.left) this.left = new BST(val);
+            if(!this.left) this.left = new BST(val, this);
             else this.left.add(val);
         else 
-            if(!this.right) this.right = new BST(val);
-            else this.right.add( val);
+            if(!this.right) this.right = new BST(val, this);
+            else this.right.add(val);
+    }
+
+    getLeftMostNode() {
+        if(this.left) {
+            return this.left.getLeftMostNode();
+        } else {
+            return this.root;
+        }
+    }
+
+    getRightMostNode() {
+        if(this.right) {
+            return this.right.getRightMostNode();
+        } else {
+            return this;
+        }
+    }
+
+
+
+    remove(val) {
+
+        if(val === this.val) {
+            // 3 scenarios
+            // 1 leaf node
+            if(!this.left && !this.right) {
+                // remove node
+                return null;
+            // 2 child
+            } else if (!this.left || !this.right) {
+                // parent.right or parent.left === existing child
+                if(this.right) {
+                    this.right.parent = this.parent;
+                    return this.right
+                } else {
+                    this.left.parent = this.parent;
+                    return this.left
+                }
+            // 3 two children
+            } else if (this.left && this.right){
+                // get smallest child of this.right
+                nextSmallest = this.right.getLeftMostNode();
+                
+                // parent.right or parent.left === existing child operation ^
+                if(nextSmallest.right) {
+                    nextSmallest.parent.left = nextSmallest.right;
+                    nextSmallest.right.parent = nextSmallest.parent;
+                } else {
+                    this.val = null;
+                }
+
+                this.val = nextSmallest.val;
+                
+
+                return this
+            }
+
+            return null
+        }
+
+        if(val < this.val && this.left) 
+            this.left = this.left.remove(val);
+        if(val > this.val && this.right)
+            this.right = this.right.remove(val);
+
+        return this
     }
 
     breadthFirstTraversal(){
@@ -39,11 +98,6 @@ class BST {
         }
     }
 
-/*
-    5
-1       7
-
-*/
     convertToArr(){
         let arr = [];
 
@@ -56,7 +110,6 @@ class BST {
         if(this.right) {
             arr = arr.concat( this.right.convertToArr() );
         }
-
         return arr;
     }
 }
@@ -72,6 +125,8 @@ bst.add(12);
 
 bst.breadthFirstTraversal();
 let arr = bst.convertToArr();
-console.log(arr)
-// console.log(bst);
+console.log(arr);
+
+bst.remove(10);
+console.log(bst);
 
