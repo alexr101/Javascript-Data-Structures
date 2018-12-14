@@ -81,6 +81,10 @@ class BST {
         return this
     }
 
+    remove(root, val) {
+        
+    }
+
     breadthFirstTraversal(){
         let queue = [this];
 
