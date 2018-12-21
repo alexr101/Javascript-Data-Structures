@@ -30,8 +30,7 @@ class BST {
         const left = (this.left) ? this.left.getHeight() : -1; 
         const right = (this.right) ? this.right.getHeight() : -1;
 
-        if(left > right) return left + 1
-        else return right + 1
+        return Math.max(left, right) + 1
     }
 
     // BAD dont use BFS
