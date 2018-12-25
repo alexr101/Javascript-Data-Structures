@@ -22,6 +22,7 @@ class BST{
 
     }
 
+    // With BFS
     nodesAtDepth(bst, depth){
         let bsts = [];
         const q = [bst];
@@ -46,10 +47,29 @@ class BST{
             if(currentDepth === depth) bsts.push(c);
             if(levelMap[currentDepth] === 0) currentDepth++;
         }
-
         return bsts;
+    }
+
+    nodesAtDepthWParams(bst, targetLevel) {
+        this._nodesAtDepthWParams(bst, [], 0, targetLevel)
+    }
+
+    _nodesAtDepthWParams(bst, nodes, level, targetLevel){
+        if(!bst) return;
+
+        if(bst.left) 
+            this._nodesAtDepthWParams(bst.left, nodes, level+1, targetLevel);
+        if(bst.right)
+            this._nodesAtDepthWParams(bst.right, nodes, level+1, targetLevel);
+
+        if(level === targetLevel) {
+            console.log(bst.val);
+        }
+
+
 
     }
+
 
     depth() {
         const leftH = (this.left) 
@@ -76,3 +96,5 @@ bst.add(43)
 const depth = bst.depth()
 const bsts = bst.nodesAtDepth(bst, 0);
 console.log(bsts);
+
+bst.nodesAtDepthWParams(bst, 2 )
