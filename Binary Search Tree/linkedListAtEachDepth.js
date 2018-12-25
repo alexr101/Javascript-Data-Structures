@@ -22,12 +22,41 @@ class BST{
 
     }
 
-    depthList() {
+    nodesAtDepth(bst, depth){
+        let bsts = [];
+        const q = [bst];
+        let currentDepth = 0;
+        let levelMap = {0:1}
+        while(q.length) {
+            const c = q.shift();
+
+            if(c.left) {
+                q.push(c.left);
+                if(!levelMap[currentDepth+1]) levelMap[currentDepth+1] = 1;
+                else levelMap[currentDepth+1] += 1
+            }
+            if(c.right) {
+                q.push(c.right);
+                if(!levelMap[currentDepth+1]) levelMap[currentDepth+1] = 1;
+                else levelMap[currentDepth+1] += 1
+            }
+
+            levelMap[currentDepth]--;
+            
+            if(currentDepth === depth) bsts.push(c);
+            if(levelMap[currentDepth] === 0) currentDepth++;
+        }
+
+        return bsts;
+
+    }
+
+    depth() {
         const leftH = (this.left) 
-            ? this.left.depthList() + 1
+            ? this.left.depth() + 1
             : 0;
         const rightH = (this.right) 
-            ? this.right.depthList() + 1
+            ? this.right.depth() + 1
             : 0;
 
         return Math.max(leftH, rightH)
@@ -44,4 +73,6 @@ bst.add(19)
 bst.add(43)
 
 // console.log(bst);
-console.log(bst.depthList())
+const depth = bst.depth()
+const bsts = bst.nodesAtDepth(bst, 0);
+console.log(bsts);
