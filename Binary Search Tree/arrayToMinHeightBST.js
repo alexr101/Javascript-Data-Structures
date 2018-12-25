@@ -1,3 +1,5 @@
+// Cracking the coding interview 4.2 p189
+
 class BST {
     constructor(val){
         this.val = val;
