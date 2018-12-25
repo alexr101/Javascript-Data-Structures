@@ -54,7 +54,7 @@ bst.add(10);
 bst.add(20);
 bst.add(5);
 bst.add(6);
-bst.add÷(60);
+bst.add(60);
 // console.log(bst);
 
 bst.left = bst.left.rotateRight();
