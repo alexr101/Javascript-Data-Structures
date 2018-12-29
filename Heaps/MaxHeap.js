@@ -17,10 +17,10 @@ class MaxHeap {
 
     insert(val){
         this.heap[this.heap.length] = val;
-        this.balance(this.heap.length-1);
+        this.balanceUpwards(this.heap.length-1);
     }
 
-    balance(index) {
+    balanceUpwards(index) {
         if(this.heap.length === 1) return;
         
         let parent = this.heap[ Math.floor(index/2) ];
@@ -34,6 +34,33 @@ class MaxHeap {
         }
     }
 
+    balanceDownwards(index) {
+        let current = this.heap[index];
+        let leftChild = this.heap[index*2];
+        let rightChild = this.heap[(index*2) + 1];
+        let maxChild = Math.max(leftChild, rightChild);
+        let childIndex;
+
+        // edge case no right or left child
+        if(!leftChild) maxChild = rightChild;
+        if(!rightChild) maxChild = leftChild;
+        
+        // get the index of the maxChild
+        if(maxChild === leftChild) childIndex = index*2;
+        else if(maxChild === rightChild) childIndex = (index*2) + 1;
+        
+        if(maxChild > current) {
+            swap(this.heap, index, childIndex);
+            this.balanceDownwards(childIndex)
+        }
+    }
+
+    deleteHead() {
+        swap(this.heap, 1, this.heap.length-1);
+        this.heap.pop();
+        this.balanceDownwards(1);
+    }
+
 }
 
 const maxHeap = new MaxHeap();
@@ -41,4 +68,19 @@ maxHeap.insert(10);
 maxHeap.insert(100);
 maxHeap.insert(200);
 maxHeap.insert(20);
+maxHeap.insert(50);
+maxHeap.insert(120);
+maxHeap.deleteHead();
+maxHeap.deleteHead();
 console.log(maxHeap);
+
+// deleteHead leaves >
+// 10
+// 20 100
+
+// 100
+// 20 10
+
+// deleteHead again leaves >
+// 10
+// 20
