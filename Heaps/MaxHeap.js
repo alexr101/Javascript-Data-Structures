@@ -55,6 +55,10 @@ class MaxHeap {
         }
     }
 
+    search(val){
+        
+    }
+
     deleteHead() {
         swap(this.heap, 1, this.heap.length-1);
         this.heap.pop();
