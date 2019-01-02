@@ -11,6 +11,22 @@ class MinHeap {
         this.balanceUpwards(this.heap.length-1);
     }
 
+    getValue(key) {
+        for(let i = 1; i < this.heap.length; i++) {
+            if(this.heap[i].key === key) 
+                return this.heap[i].value;
+        }
+    }
+
+    update(key, value) {
+        for(let i = 1; i < this.heap.length; i++) {
+            if(this.heap[i].key === key) {
+                this.heap[i].value = value;
+                this.balanceUpwards(i);
+            }
+        }
+    }
+
     removeRoot() {
         swap(this.heap, 1, this.heap.length-1);
         let min = this.heap.pop();
@@ -43,9 +59,10 @@ class MinHeap {
 
         let current = this.heap[i];
         let parent = this.heap[Math.floor( i/2 )];
-        while(parent && current.value < parent.value) {
+
+        while(parent && (current.value < parent.value)) {
             swap(this.heap, i, Math.floor(i/2));
-            current = parent;
+            current = this.heap[Math.floor(i/2)];
             i = Math.floor(i/2);
             parent = this.heap[Math.floor( i/2 )];
         }

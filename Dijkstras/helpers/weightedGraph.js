@@ -3,6 +3,22 @@ class WeightedGraph {
         this.list = {};
     }
 
+    keysToArr() {
+        return this.list.map(n => {
+            return n.node;
+        })
+    }
+
+    getList(){
+        return Object.keys(this.list).map(k => k);
+    }
+
+    getWeight(n1, n2) {
+        return this.list[n1].filter(c => {
+            return c.node === n2;
+        })[0].weight
+    }
+
     addNode(n) {
         if(this.list[n]) return;
         else this.list[n] = [];
