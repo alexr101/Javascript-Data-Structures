@@ -18,8 +18,6 @@ function DijkstraShortestPath(rootN, destN, graph) {
 
     let currentNode = minHeap.removeRoot();
     while(currentNode.key !== destN) {
-        console.log()
-        console.log('loop: ', currentNode.key)
         const children = graph.getChildren(currentNode.key);
         children.forEach((c) => {
             const childNode = c.node;
@@ -27,8 +25,6 @@ function DijkstraShortestPath(rootN, destN, graph) {
             const currentWeight = minHeap.getValue(childNode);
             if(currentNode.value + newWeight < currentWeight) 
                 minHeap.update(childNode, currentNode.value + newWeight);
-            console.log('childNode: ', childNode)
-            console.log(minHeap)
         })
         shortestPaths[currentNode.key] = currentNode.value;
         currentNode = minHeap.removeRoot();
@@ -36,8 +32,6 @@ function DijkstraShortestPath(rootN, destN, graph) {
     shortestPaths[currentNode.key] = currentNode.value;
 
     return shortestPaths;
-
-    
 }
 
 
