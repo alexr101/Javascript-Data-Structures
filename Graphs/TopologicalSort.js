@@ -31,6 +31,25 @@ class Graph {
         if(n1 === n2) return;
         this.adjacencyMatrix[n1][n2] = 0;
     }
+
+    dfs(n, visited, path) {
+        if(visited[n]) return;
+        visited[n] = true;
+        this.adjacencyMatrix[n].map((edge, i) => {
+            if(edge) this.dfs(i, visited, path);
+        });
+        path.unshift(n)
+    }   
+
+    topologicalSort() {
+        const nodes = this.adjacencyMatrix.map((n, i) => i);
+        let visited = [];
+        let path = [];
+        nodes.forEach(n => { 
+            this.dfs(n, visited, path) 
+        })
+        return path;
+    }
 }
 
 const graph = new Graph();
@@ -49,6 +68,8 @@ graph.addDirectedEdge(1, 4)
 graph.addDirectedEdge(2, 1)
 graph.addDirectedEdge(3, 1)
 graph.addDirectedEdge(4, 2)
+let topSort = graph.topologicalSort();
+console.log(topSort);
 console.log(graph);
 
 
