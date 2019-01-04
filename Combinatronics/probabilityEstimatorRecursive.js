@@ -60,5 +60,9 @@ function _possibilities(state, possibilities, probabilityOf, repeating, count) {
 }
 
 
-const p = possibilities(items = 3, possibilities = 5, probabilityOf = 2, repeating = 3); 
+const p = possibilities(
+    items = 3, 
+    possibilities = 5, 
+    probabilityOf = 2, 
+    repeating = 3); 
 console.log(p)
