@@ -1,17 +1,21 @@
 const compoundProbability = (probability, times) => {
     let compound = 1;
     for(let i = 0; i < times; i++) {
-        compound = compound * probability;
+        compound *= probability;
     }
     return compound
 }
 
-const probability = (p, n) => {
+// p = probabilities (imagine a die w 6 faces)
+// n = denominator. How many chances of getting your result
+const probability = (n, p) => {
     return n/p;
 }
 
 
-const compound = compoundProbability(probability(6, 1), 2);
+console.log(probability(1, 2));
+
+const compound = compoundProbability(probability(1, 6), 3);
 console.log(compound);
 
 /*
@@ -22,6 +26,20 @@ console.log(compound);
 51 52 53 54 55 56
 61 62 63 64 65 66
 
-
+111
 1/36
+*/
+
+/*
+
+ttt
+tth
+tht
+htt
+hth
+hhh
+hht
+thh
+
+
 */
