@@ -31,5 +31,9 @@ const LuhnsValidCreditCard = (card) => {
     return (evenSum + oddSum) % 10 === 0;
 }
 
-const cardValid = LuhnsValidCreditCard('4847352989263094');
+const cardValid = LuhnsValidCreditCard('5178059648566892');
 console.log(cardValid);
+
+
+
+
