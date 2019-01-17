@@ -15,8 +15,35 @@ const randomCharGenerator = () => {
     return String.fromCharCode(getCharNum(random(62)));
 }
 
-let token = '';
-for (let i = 0; i < 20; i++) {
-    token += randomCharGenerator();
+const generateChar = (n) => {
+    return String.fromCharCode(getCharNum(n));
 }
-console.log(token);
+
+let charToCountMap = {
+    1: 1,
+    2: 1,
+    3: 1,
+    4: 1,
+    5: 1,
+}
+const generateToken = () => {
+    let token = '';
+    let charsAvailable = 62;
+    let increasedCount = false;
+    for (let i = 5; i > 0; i--) {
+        if(!increasedCount && charToCountMap[i] < charsAvailable) {
+            charToCountMap[i]++;
+            increasedCount = true;
+        }
+        token = generateChar(charToCountMap[i]) + token;
+    }
+    if(!increasedCount) return 'tokens full';
+    else return token;
+}
+
+// TEST
+let tokens = [];
+for(let i = 0; i < 1000; i++) {
+    tokens.push(generateToken());
+}
+console.log(tokens);
