@@ -1,17 +1,15 @@
-// HAVENT IMPLEMENTED THE MEMO
-
-
 let memo;
-let found;
 function abbreviation(a, b) {
+    console.log(a + '-' + b);
     memo = {};
-    found = false;
-    return _abbreviation(a, b);
+    let result = _abbreviation(a, b);
+    // console.log(memo);
+    return result;
 }
 
 // Complete the abbreviation function below.
 function _abbreviation(a, b) {
-    if (found) return 'YES';
+    if (memo[a+'-'+b]) return memo[a+'-'+b];
     if (a.length < b.length) return 'NO';
 
     if (!b.length) {
@@ -21,17 +19,20 @@ function _abbreviation(a, b) {
         found = true;
         return 'YES';
     }
+    let result = '';
     let remainderA = a.substring(1, a.length);
     let remainderB = b.substring(1, b.length);
     if (a[0] === a[0].toLowerCase()) {
-        const left = abbreviation(a[0].toUpperCase() + remainderA, b);
-        const right = abbreviation(remainderA, b);
-
+        const left = _abbreviation(a[0].toUpperCase() + remainderA, b);
+        const right = _abbreviation(remainderA, b);
         if (left || right) found = true;
-        return (left === 'YES') ? left : right;
+        result = (left === 'YES') ? left : right;
     } else {
-        if (a[0] === b[0])
-            return abbreviation(remainderA, remainderB);
-        return 'NO';
+        console.log('-----')
+        console.log({a,b})
+        if (a[0] === b[0]) result = _abbreviation(remainderA, remainderB);
+        else result = 'NO';
     }
+    memo[a + '-' + b] = result;
+    return memo[a + '-' + b]
 }
