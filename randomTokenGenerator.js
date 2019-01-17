@@ -34,7 +34,7 @@ const generateToken = () => {
         if(!increasedCount && charToCountMap[i] < charsAvailable) {
             charToCountMap[i]++;
             increasedCount = true;
-        }
+        }git p
         token = generateChar(charToCountMap[i]) + token;
     }
     if(!increasedCount) return 'tokens full';
