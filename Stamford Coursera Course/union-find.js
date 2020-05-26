@@ -1,22 +1,28 @@
 class UnionFind {
 
+	// speed O(n)
+	// space O(n)
 	constructor(n){
-		this.collection = [];
-		for(let i = 0; i < n; i++) {
+		this.collection = []; // 1
+		for(let i = 0; i < n; i++) { // n
 			this.collection[i] = i;
 		} 
 	}
 
+	// speed O(1)
+	// space O(1)
 	connected(p, q) {
-		return this.collection[p] === this.collection[q];
+		return this.collection[p] === this.collection[q]; // 1
 	}
 
+	// speed O(n)
+	// space O(1)
 	union(p, q) {
-		const pId = this.collection[p];
-		const qId = this.collection[q];
-		for(let i = 0; i < this.collection.length; i++) {
+		const pId = this.collection[p]; // speed:1 space:1
+		const qId = this.collection[q]; // speed:1 space:1
+		for(let i = 0; i < this.collection.length; i++) { // n
 			if(this.collection[i] === pId) 
-				this.collection[i] = qId
+				this.collection[i] = qId // speed:1 space:1
 		}
 	}
 
