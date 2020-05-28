@@ -72,13 +72,10 @@ class UnionFind {
 	}
 
 	findRoot(i) {
-		let root = i;
-		let current = i;
-		while(this.collection[current] !== current) {
-			current = this.collection[current];
-			root = current;
+		while(this.collection[i] !== i) {
+			i = this.collection[i];
 		}
-		return root;
+		return i;
 	}
 
 	// speed O(n)
